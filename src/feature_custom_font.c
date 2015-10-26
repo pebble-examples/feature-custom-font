@@ -13,9 +13,13 @@ static void init() {
   GFont custom_font = fonts_load_custom_font(resource_get_handle(RESOURCE_ID_FONT_OSP_DIN_44));
 
   s_text_layer = text_layer_create(bounds);
-  text_layer_set_text(s_text_layer, "  Hello,\n  World!");
+  text_layer_set_text(s_text_layer, PBL_IF_RECT_ELSE("  Hello,\n  World!", "Hello, World!"));
   text_layer_set_font(s_text_layer, custom_font);
   layer_add_child(window_layer, text_layer_get_layer(s_text_layer));
+#if PBL_ROUND
+  text_layer_set_text_alignment(s_text_layer, GTextAlignmentCenter);
+  text_layer_enable_screen_text_flow_and_paging(s_text_layer, 8);
+#endif
 }
 
 static void deinit() {
